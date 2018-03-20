@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Basemap</title>
+		 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+         <link rel="stylesheet" href="https://js.arcgis.com/3.23/esri/css/esri.css">
+         <script src="https://js.arcgis.com/3.23/"></script>
+	</head>
+         <script>
+             
+            var map;
+    function Basemap()
+         {
+               
+            var mybasemap=document.getElementById("txtmap").value; 
+            var lon=document.getElementById("txtlon").value;  
+            var lat=document.getElementById("txtlat").value; 
+            var a=lon;
+            var b=lat;
+		    var zoo=document.getElementById("txtzoom").value; 
+            
+             require(["esri/map", "dojo/domReady!"],
+             function(Map) 
+	                  {
+		                  map = new Map("map", 
+		                 {
+			              basemap: mybasemap,
+			              center: [a, b],
+			              zoom: zoo
+		                 });
+               
+                       });
+            }
+                   
+      function  Refresh()
+         {
+               
+            var mybasemap=document.getElementById("txtmap").value; 
+            var lon=document.getElementById("txtlon").value;  
+            var lat=document.getElementById("txtlat").value; 
+            var a=lon;
+            var b=lat;
+		    var zoo=document.getElementById("txtzoom").value; 
+            var center=[a,b];
+            map.setBasemap(mybasemap);
+            map.centerAndZoom(center,zoo);
+             
+            
+        }  
+        
+         
+         </script>
+  
+		<style>
+            html, body, #map {
+                      height: 100%;
+                      padding: 0;
+                      margin: 0;
+      }
+    #chooseMapDiv {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      padding: 7px 0;
+      z-index: 1;
+      text-align: center;} 
+</style>
+	
+	<body class="claro">
+          <div id="map"></div>
+          <div id="chooseMapDiv">
+		    经度：<input type="text" id="txtlon"/><br/> 
+		    纬度：<input type="text" id="txtlat"/><br/> 
+            级别：<input type="text" id="txtzoom"/><br/>
+            底图：<input type="text" id="txtmap"/><br/>
+            <input type="text" name="input1" value="satellite,osm,streets,topo,hybrid..." disabled="disabled" style=width:200px; height:5px;background:#CCCCCC"/><br/>
+          <input type="button" id="bnmap" value="加载地图" onclick="Basemap()"/>
+            <input type="button" id="bnrefresh" value="刷新地图" onclick="Refresh()"/>                                                        
+    </body>
+    
+</html>
